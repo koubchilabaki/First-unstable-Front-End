@@ -3,12 +3,12 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Maximal</mat-label>
-    <input matInput [value]="data.maximal" name="newMaximal" >
-    </mat-form-field>
+    <input matInput [value]="data.maximal" name="newMaximal" [(ngModel)]="newMax" >
+  </mat-form-field>
 
-    <mat-form-field>
+  <mat-form-field>
     <mat-label>Minimal</mat-label>
-    <input matInput [value]="data.minimal" name="newMinimal" >
+    <input matInput [value]="data.minimal" name="newMinimal" [(ngModel)]="newMin">
   </mat-form-field>
   <!--<p>First maximal value: {{ newQualificatif.maximal }}</p>
   <p>First minimal valid: {{ newQualificatif.minimal }}</p>-->

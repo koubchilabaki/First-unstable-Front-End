@@ -79,7 +79,7 @@ export class DeleteDialogComponent {
           console.log('data', this.data);
         },
         reponse => { this.errorDelete = reponse.error.message;
-                     alert(this.errorDelete);
+          alert(this.errorDelete);
         }
       );
   }
@@ -91,6 +91,8 @@ export class DeleteDialogComponent {
 })
 export class UpdateDialogComponent{
   errorDelete: string;
+  newMax: string = this.data.maximal;
+  newMin: string = this.data.minimal;
   newQualificatif: Qualificatif;
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Qualificatif,
@@ -101,13 +103,16 @@ export class UpdateDialogComponent{
     this.dialogRef.close();
   }
   update(): void {
-    this.qualificatifService.updateQualificatif(this.data)
+    this.newQualificatif= new Qualificatif(this.newMax, this.newMin);
+    this.newQualificatif.idQualificatif= this.data.idQualificatif;
+    console.log(this.newQualificatif);
+    this.qualificatifService.updateQualificatif(this.newQualificatif)
       .subscribe(
         result => {
-          console.log('data  ', this.data);
+          console.log('data  ', this.newQualificatif);
         },
         reponse => { this.errorDelete = reponse.error.message;
-                     alert(this.errorDelete);
+          alert(this.errorDelete);
         }
       );
   }
