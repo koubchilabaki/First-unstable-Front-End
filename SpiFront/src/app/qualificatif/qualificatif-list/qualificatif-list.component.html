@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<div class="container">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Couple Qualificatif List</h2>
+    <button type="button" class="btn btn-outline-default btn-rounded waves-effect">Ajouter Qualificatif</button>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Maximal</th>
+        <th>Minimal</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let qualificatif of qualificatifs | async">
+        <td>{{qualificatif.maximal}}</td>
+        <td>{{qualificatif.minimal}}</td>
+        <td><button mat-raised-button (click)="showDeleteDialog(qualificatif)"  class="btn btn-danger">Delete</button>
+          <button (click)="showUpdateDialog(qualificatif)" class="btn btn-info" style="margin-left: 10px">Update</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
