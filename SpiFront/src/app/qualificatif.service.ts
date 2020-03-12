@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class QualificatifService {
-  private baseURL = 'http://localhost:9090/qualificatifs';
+  private baseURL = 'http://localhost:8080/qualificatifs';
 
   constructor(private http: HttpClient) { }
 
@@ -23,5 +23,8 @@ export class QualificatifService {
   }
   updateQualificatif(qualificatif: Qualificatif): Observable<object> {
     return this.http.put(`${this.baseURL}/updateQual`, qualificatif);
+  }
+  createQualificatif(qualificatif: Qualificatif): Observable<object> {
+    return this.http.post(`${this.baseURL}/createQual`, qualificatif);
   }
 }

@@ -6,6 +6,7 @@ import { RubriqueListComponent } from './rubrique/rubrique-list/rubrique-list.co
 import { RubriqueDetailsComponent } from './rubrique/rubrique-details/rubrique-details.component';
 import { NavBarComponent } from './page-web/nav-bar/nav-bar.component';
 import {
+  CreateDialogComponent,
   DeleteDialogComponent,
   QualificatifListComponent,
   UpdateDialogComponent
@@ -29,7 +30,8 @@ import {FormsModule} from '@angular/forms';
     NavBarComponent,
     QualificatifListComponent,
     DeleteDialogComponent,
-    UpdateDialogComponent
+    UpdateDialogComponent,
+    CreateDialogComponent
   ],
   imports: [
     BrowserModule, MDBBootstrapModule.forRoot(), HttpClientModule,
@@ -47,6 +49,6 @@ import {FormsModule} from '@angular/forms';
   ],
   providers: [ {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteDialogComponent, UpdateDialogComponent]
+  entryComponents: [DeleteDialogComponent, UpdateDialogComponent, CreateDialogComponent]
 })
 export class AppModule { }

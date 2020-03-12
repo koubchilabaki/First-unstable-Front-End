@@ -22,8 +22,6 @@ export class QualificatifListComponent implements OnInit {
   reloadData() {
     this.qualificatifs = this.qualificatifService.getQualificatifsList();
   }
-  updateQualificatif(id: number) {
-  }
   showDeleteDialog(qualificatif: Qualificatif): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
@@ -37,26 +35,22 @@ export class QualificatifListComponent implements OnInit {
   showUpdateDialog(qualificatif: Qualificatif): void {
     const dialogRef = this.dialog.open(UpdateDialogComponent, {
       width: '500px',
-      data: qualificatif
+      data: qualificatif,
+  });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.reloadData();
+    });
+  }
+  showCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreateDialogComponent, {
+      width: '500px'
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.reloadData();
     });
   }
-  /*openDialog() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    dialogConfig.data = {
-      id: 1,
-      title: 'Angular For Beginners'
-    };
-
-    this.dialog.open(DeleteDialogComponent, dialogConfig);
-  }*/
 }
 @Component({
   selector: 'app-delete-dialog',
@@ -79,14 +73,14 @@ export class DeleteDialogComponent {
           console.log('data', this.data);
         },
         reponse => { this.errorDelete = reponse.error.message;
-          alert(this.errorDelete);
+           if(!this.errorDelete.small().includes('undefined')) alert(this.errorDelete);
         }
       );
   }
 }
 
 @Component({
-  selector: 'app-delete-dialog',
+  selector: 'app-update-dialog',
   templateUrl: 'update-dialog.component.html',
 })
 export class UpdateDialogComponent{
@@ -107,6 +101,37 @@ export class UpdateDialogComponent{
     this.newQualificatif.idQualificatif= this.data.idQualificatif;
     console.log(this.newQualificatif);
     this.qualificatifService.updateQualificatif(this.newQualificatif)
+      .subscribe(
+        result => {
+          console.log('data  ', this.newQualificatif);
+        },
+        reponse => { this.errorDelete = reponse.error.message;
+          alert(this.errorDelete);
+        }
+      );
+  }
+}
+
+@Component({
+  selector: 'app-create-dialog',
+  templateUrl: 'create-dialog.component.html',
+})
+export class CreateDialogComponent{
+  errorDelete: string;
+  newMax: string;
+  newMin: string;
+  newQualificatif: Qualificatif;
+  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
+              private qualificatifService: QualificatifService) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  create(): void {
+    this.newQualificatif= new Qualificatif(this.newMax, this.newMin);
+    console.log(this.newQualificatif);
+    this.qualificatifService.createQualificatif(this.newQualificatif)
       .subscribe(
         result => {
           console.log('data  ', this.newQualificatif);
